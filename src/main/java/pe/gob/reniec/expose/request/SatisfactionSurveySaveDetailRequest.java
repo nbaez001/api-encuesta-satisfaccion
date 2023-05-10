@@ -1,9 +1,6 @@
 package pe.gob.reniec.expose.request;
 
 import java.io.Serializable;
-import org.hibernate.validator.constraints.Length;
-
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -23,10 +20,8 @@ import lombok.Data;
 public class SatisfactionSurveySaveDetailRequest implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @Length(max = 400, message = "{deComenteResp.Length}")
   private String deComenteResp;
 
-  @NotNull(message = "{idEncuestaOpcionResp.NotNull}")
   private Long idEncuestaOpcionResp;
 
 }

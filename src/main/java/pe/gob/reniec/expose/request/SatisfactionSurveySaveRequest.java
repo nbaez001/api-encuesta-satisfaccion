@@ -2,8 +2,6 @@ package pe.gob.reniec.expose.request;
 
 import java.io.Serializable;
 import java.util.List;
-
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -23,10 +21,8 @@ import lombok.Data;
 public class SatisfactionSurveySaveRequest implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @NotNull(message = "{idEncuesta.NotNull}")
   private Long idEncuesta;
   
-  @NotNull(message = "{idCita.NotNull}")
   private Long idCita;
 
   private List<SatisfactionSurveySaveDetailRequest> respuestas;

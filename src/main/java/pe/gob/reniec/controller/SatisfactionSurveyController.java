@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import pe.gob.reniec.expose.request.SatisfactionSurveySaveRequest;
@@ -39,7 +38,7 @@ public class SatisfactionSurveyController {
 
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Mono<OutputResponse<String>> saveSatisfactionSurvey(
-      @Valid @RequestBody SatisfactionSurveySaveRequest req) {
+      @RequestBody SatisfactionSurveySaveRequest req) {
     log.info(
         "SatisfactionSurveyController [saveSatisfactionSurvey][START][" + req.toString() + "]");
     return satisfactionSurveyService.saveSatisfactionSurvey(req)
