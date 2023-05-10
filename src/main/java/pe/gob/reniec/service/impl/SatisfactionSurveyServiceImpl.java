@@ -1,6 +1,7 @@
 package pe.gob.reniec.service.impl;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
@@ -35,10 +36,17 @@ public class SatisfactionSurveyServiceImpl implements SatisfactionSurveyService 
   @Override
   public Mono<OutputResponse<String>> saveSatisfactionSurvey(
       SatisfactionSurveySaveRequest req) {
-    String session = InetAddress.getLoopbackAddress().getHostAddress() + "|"
-        + InetAddress.getLoopbackAddress().getHostName() + "|"
-        + (UserToken.getInstance().getNuDni() != null ? UserToken.getInstance().getNuDni()
-            : ConstantsUtil.USER_CIUDADANO);
+    String session;
+    try {
+      session = InetAddress.getLocalHost().getHostAddress() + "|"
+          + InetAddress.getLocalHost().getHostName() + "|"
+          + (UserToken.getInstance().getNuDni() != null ? UserToken.getInstance().getNuDni()
+              : ConstantsUtil.USER_CIUDADANO);
+    } catch (UnknownHostException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      session="";
+    }
     log.info("SESSION");
     log.info(session);
     
