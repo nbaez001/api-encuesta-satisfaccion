@@ -38,7 +38,7 @@ public class SatisfactionSurveyController {
   private final SatisfactionSurveyService satisfactionSurveyService;
 
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public Mono<OutputResponse<SatisfactionSurveySaveResponse>> saveSatisfactionSurvey(
+  public Mono<OutputResponse<String>> saveSatisfactionSurvey(
       @Valid @RequestBody SatisfactionSurveySaveRequest req) {
     log.info(
         "SatisfactionSurveyController [saveSatisfactionSurvey][START][" + req.toString() + "]");

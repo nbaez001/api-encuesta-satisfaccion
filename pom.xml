@@ -27,10 +27,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
@@ -43,10 +39,6 @@
 		</dependency>
 
 		<!-- Oracle DB -->
-		<dependency>
-			<groupId>com.oracle.database.jdbc</groupId>
-			<artifactId>ojdbc11</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

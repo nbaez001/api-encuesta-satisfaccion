@@ -4,17 +4,12 @@ import java.net.InetAddress;
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import pe.gob.reniec.common.security.UserToken;
 import pe.gob.reniec.expose.request.SatisfactionSurveySaveRequest;
 import pe.gob.reniec.expose.response.SatisfactionSurveySaveResponse;
 import pe.gob.reniec.expose.response.header.OutputResponse;
-import pe.gob.reniec.model.RespAppointmentSurvey;
-import pe.gob.reniec.model.RespAppointmentSurveyCiud;
-import pe.gob.reniec.repository.RespAppointmentSurveyCiudRepository;
-import pe.gob.reniec.repository.RespAppointmentSurveyRepository;
 import pe.gob.reniec.service.SatisfactionSurveyService;
 import pe.gob.reniec.util.ConstantsUtil;
 import reactor.core.publisher.Mono;
@@ -34,52 +29,24 @@ import reactor.core.publisher.Mono;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class SatisfactionSurveyServiceImpl implements SatisfactionSurveyService {
 
-  private final RespAppointmentSurveyRepository respAppointmentSurveyRepository;
-
-  private final RespAppointmentSurveyCiudRepository respAppointmentSurveyCiudRepository;
-  
   @Override
-  @Transactional(rollbackFor = Exception.class)
-  public Mono<OutputResponse<SatisfactionSurveySaveResponse>> saveSatisfactionSurvey(
+  public Mono<OutputResponse<String>> saveSatisfactionSurvey(
       SatisfactionSurveySaveRequest req) {
     String session = InetAddress.getLoopbackAddress().getHostAddress() + "|"
         + InetAddress.getLoopbackAddress().getHostName() + "|"
         + (UserToken.getInstance().getNuDni() != null ? UserToken.getInstance().getNuDni()
             : ConstantsUtil.USER_CIUDADANO);
-    RespAppointmentSurvey sur = RespAppointmentSurvey.builder()
-        .idEncuesta(req.getIdEncuesta())
-        .idCita(req.getIdCita())
-        .idSessionEncuesta(session)
-        .flActivo(ConstantsUtil.FL_ACTIVO)
-        .usCreaAudi(UserToken.getInstance().getNuDni() != null ? UserToken.getInstance().getNuDni()
-            : ConstantsUtil.USER_CIUDADANO)
-        .feCreaAudi(new Date())
-        .build();
-    respAppointmentSurveyRepository.save(sur);
+    log.info("SESSION");
+    log.info(session);
     
-    req.getRespuestas().forEach(valDet->{
-      RespAppointmentSurveyCiud surCiud = RespAppointmentSurveyCiud.builder()
-          .idEncuestaCitaResp(sur.getIdEncuestaCitaResp())
-          .deComenteResp(valDet.getDeComenteResp())
-          .idEncuestaOpcionResp(valDet.getIdEncuestaOpcionResp())
-          .flActivo(ConstantsUtil.FL_ACTIVO)
-          .usCreaAudi(UserToken.getInstance().getNuDni() != null ? UserToken.getInstance().getNuDni()
-              : ConstantsUtil.USER_CIUDADANO)
-          .feCreaAudi(new Date())
-          .build();
-      respAppointmentSurveyCiudRepository.save(surCiud);
-    });
-    
-    OutputResponse<SatisfactionSurveySaveResponse> out = new OutputResponse<>();
-    SatisfactionSurveySaveResponse res = SatisfactionSurveySaveResponse.builder()
-        .idEncuestaCitaResp(sur.getIdEncuestaCitaResp())
-        .build();
+    OutputResponse<String> out = new OutputResponse<>();
     
     out.getAuditResponse().setCoRespuesta(ConstantsUtil.CODIGO_EXITO);
     out.getAuditResponse().setDeRespuesta(ConstantsUtil.MENSAJE_EXITO);
-    out.setResultado(res);
+    out.setResultado(session);
     
     return Mono.just(out);
   }

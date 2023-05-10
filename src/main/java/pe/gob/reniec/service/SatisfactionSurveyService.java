@@ -20,6 +20,6 @@ import reactor.core.publisher.Mono;
 
 public interface SatisfactionSurveyService {
 
-  public Mono<OutputResponse<SatisfactionSurveySaveResponse>> saveSatisfactionSurvey(
+  public Mono<OutputResponse<String>> saveSatisfactionSurvey(
       SatisfactionSurveySaveRequest req);
 }
