@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@10.48.5.200:1521/dsigedpdb.reniec.gob.pe
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: IDUCITAS
+    password: UKqw48$23
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 3
+      idle-timeout: 10000
+      max-lifetime: 30000
+      connection-timeout: 30000
+      pool-name: HikariPoolBooks
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.Oracle12cDialect

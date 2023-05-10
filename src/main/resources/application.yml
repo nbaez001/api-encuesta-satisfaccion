@@ -1,0 +1,9 @@
+server:
+  port: 4268
+  error:
+    include-message: always #Agrega el atributo error en el response
+spring:
+  application:
+    name: api-encuesta-satisfaccion
+  profiles:
+    active: dev
